@@ -1,69 +1,32 @@
-<%= form_with(model: ordr, local: true) do |form| %>
-  <% if order.errors.any? %>
+<%= form_with(model: ordrproduct, local: true) do |form| %>
+  <% if ordrproduct.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(ordr.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <h2><%= pluralize(ordrproduct.errors.count, "error") %> prohibited this ordrproduct from being saved:</h2>
 
       <ul>
-        <% ordr.errors.full_messages.each do |message| %>
+        <% ordrproduct.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-  <div class="form-group">
-    <div class="field">
-      <%= form.label :orderno %>
-      <%= form.number_field :orderno ,:value =>"#{rand(100..1000)}",:readonly => true,class:"form-control"%>
-    </div>
 
-    <div class="field">
-      <%= form.label :trackno %>
-      <%= form.text_field :trackno, :value =>"#{rand(10000..1000000)}" ,class:"form-control"%>
-    </div>
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
 
-    <div class="field">
-      <%= form.label :paytype %>
-      <%= form.text_field :paytype ,:required =>true,class:"form-control"%>
-    </div>
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.text_field :product_id %>
+  </div>
 
-    
+  <div class="field">
+    <%= form.label :ordr_id %>
+    <%= form.text_field :ordr_id %>
+  </div>
 
-    <div class="field">
-      <%= form.label :orderdate %>
-      <%= form.datetime_select :orderdate ,class:"form-control"%>
-    </div>
-    </div>
-    <%= form.fields_for :ordrproducts do |f| %>
-      <div class="form-group">
-        <div class="field" >
-          <%= f.label :product_id %>
-          <%= f.select :product_id,options_for_select(Product.all.collect{|c| [c.name,c.id]}), class: 'form-control' %>
-        </div> 
-          
-        <div class="field">
-          <%= f.label :quantity %>
-          <%= f.text_field :quantity,:required =>true,class:"form-control" %>
-        </div>
-      </div>
-    <% end %> 
-    <div class="field">
-      <%= form.label :total %>
-      <%= form.text_field :total,class:'form-control' %>
-    </div>
-  
-    <div class="form-group"> 
-      <div class="field">
-        <%= form.label :user_id %>
-        <%= form.text_field :user_id, :value=>current_user.id ,:readonly =>true,class:"form-control"%>
-      </div>
-      <div class="field">
-        <%= form.label :address_id %>
-        <%= form.select :address_id,options_for_select(current_user.addresses.all.collect{|c| [c.addtype,c.id]}), class: 'form-control' %>
-      
-      </div>
-      
-      <div class="actions">
-        <%= form.submit class: 'btn btn-default'%>
-      </div>
-    </div>  
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>

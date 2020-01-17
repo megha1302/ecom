@@ -1,5 +1,4 @@
 class Product < ApplicationRecord
-
     attr_accessor :ordrs_attributes, :ordrproducts_attributes
     has_many :ordrproducts, dependent: :destroy
     has_many :ordrs , through: :ordrproducts

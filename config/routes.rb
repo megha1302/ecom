@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :ordrproducts
-  resources :ordrs
   root 'pages#page'
   get 'home',to:'pages#page'
   get 'login', to: 'sessions#new'

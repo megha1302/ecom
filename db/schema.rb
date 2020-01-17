@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_173141) do
+ActiveRecord::Schema.define(version: 2020_01_17_065926) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "addtype"
@@ -51,6 +51,30 @@ ActiveRecord::Schema.define(version: 2020_01_14_173141) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "ordrproducts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "quantity"
+    t.bigint "product_id", null: false
+    t.bigint "ordr_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ordr_id"], name: "index_ordrproducts_on_ordr_id"
+    t.index ["product_id"], name: "index_ordrproducts_on_product_id"
+  end
+
+  create_table "ordrs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "orderno"
+    t.string "trackno"
+    t.string "paytype"
+    t.decimal "total", precision: 10
+    t.datetime "orderdate"
+    t.bigint "user_id", null: false
+    t.bigint "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_ordrs_on_address_id"
+    t.index ["user_id"], name: "index_ordrs_on_user_id"
+  end
+
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -75,4 +99,8 @@ ActiveRecord::Schema.define(version: 2020_01_14_173141) do
   add_foreign_key "orderproducts", "orders"
   add_foreign_key "orderproducts", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "ordrproducts", "ordrs"
+  add_foreign_key "ordrproducts", "products"
+  add_foreign_key "ordrs", "addresses"
+  add_foreign_key "ordrs", "users"
 end

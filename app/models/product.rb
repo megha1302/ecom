@@ -1,8 +1,8 @@
 class Product < ApplicationRecord
 
-    attr_accessor :orders_attributes, :orderproducts_attributes
-    has_many :orderproducts, dependent: :destroy
-    has_many :orders , through: :orderproducts
+    attr_accessor :ordrs_attributes, :ordrproducts_attributes
+    has_many :ordrproducts, dependent: :destroy
+    has_many :ordrs , through: :ordrproducts
     
     def self.search(search)
         if search

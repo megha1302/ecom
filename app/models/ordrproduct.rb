@@ -1,5 +1,5 @@
-class Orderproduct < ApplicationRecord
+class Ordrproduct < ApplicationRecord
   belongs_to :product
-  belongs_to :order
+  belongs_to :ordr
   attr_accessor :products_attributes
 end
